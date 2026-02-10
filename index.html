@@ -4,339 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>千城 - 生日快乐</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #ffd89b 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 飘落的樱花/花瓣 */
-        .petal {
-            position: fixed;
-            top: -50px;
-            font-size: 24px;
-            animation: fall linear infinite;
-            opacity: 0.8;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-            }
-        }
-
-        /* 星星闪烁效果 */
-        .star {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background-color: #ffffff;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: twinkle 2s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 1;
-            box-shadow: 0 0 4px rgba(255,255,255,0.8);
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
-        }
-
-        /* 主容器 */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        /* 标题区域 */
-        .header {
-            margin-bottom: 40px;
-            animation: fadeInDown 1.5s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .birthday-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: bounce 2s ease infinite;
-            display: inline-block;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            color: white;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-            letter-spacing: 8px;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: rgba(255,255,255,0.9);
-            font-weight: 300;
-            letter-spacing: 4px;
-        }
-
-        /* 名字展示 */
-        .name-display {
-            margin: 50px 0;
-            animation: fadeInUp 1.5s ease 0.5s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .name {
-            font-size: 5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #fff, #ffd700, #fff, #ff69b4, #fff);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s ease infinite;
-            text-shadow: none;
-            letter-spacing: 20px;
-            display: inline-block;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 祝福卡片 */
-        .wish-card {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 50px 40px;
-            margin: 40px 0;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            animation: fadeInUp 1.5s ease 1s both;
-        }
-
-        .wish-card p {
-            font-size: 1.3rem;
-            color: white;
-            line-height: 2.2;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .wish-card .highlight {
-            color: #ffd700;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        /* 蛋糕区域 */
-        .cake-section {
-            margin: 50px 0;
-            animation: fadeInUp 1.5s ease 1.5s both;
-        }
-
-        .cake {
-            font-size: 120px;
-            position: relative;
-            display: inline-block;
-            animation: cakeWiggle 3s ease infinite;
-        }
-
-        @keyframes cakeWiggle {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
-
-        .candle-flame {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 40px;
-            animation: flicker 0.5s ease infinite alternate;
-        }
-
-        @keyframes flicker {
-            from { transform: translateX(-50%) scale(1); opacity: 1; }
-            to { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
-        }
-
-        /* 礼物盒 */
-        .gift-section {
-            margin: 40px 0;
-            animation: fadeInUp 1.5s ease 2s both;
-        }
-
-        .gift-box {
-            display: inline-block;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .gift-box:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .gift-box:active {
-            transform: scale(0.95);
-        }
-
-        .gift-emoji {
-            font-size: 100px;
-            display: block;
-        }
-
-        .gift-text {
-            color: white;
-            font-size: 1.2rem;
-            margin-top: 15px;
-            opacity: 0.9;
-        }
-
-        /* 点击礼物后的惊喜 */
-        .surprise-message {
-            display: none;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            color: #333;
-            padding: 30px;
-            border-radius: 20px;
-            margin-top: 20px;
-            font-size: 1.3rem;
-            animation: popIn 0.5s ease;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            80% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .surprise-message.show {
-            display: block;
-        }
-
-        /* 气球装饰 */
-        .balloons {
-            position: fixed;
-            bottom: -200px;
-            animation: floatUp 20s ease-in infinite;
-            font-size: 50px;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* 底部签名 */
-        .footer {
-            margin-top: 60px;
-            color: rgba(255,255,255,0.8);
-            font-size: 1.1rem;
-            animation: fadeIn 2s ease 2.5s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .heart {
-            color: #ff4757;
-            display: inline-block;
-            animation: heartbeat 1.5s ease infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; letter-spacing: 4px; }
-            .name { font-size: 3rem; letter-spacing: 10px; }
-            .wish-card { padding: 30px 20px; }
-            .wish-card p { font-size: 1.1rem; }
-            .cake { font-size: 80px; }
-            .birthday-icon { font-size: 60px; }
-        }
-
-        /* 烟花效果 */
-        .firework {
-            position: fixed;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .firework-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            animation: explode 1s ease-out forwards;
-        }
-
-        @keyframes explode {
-            0% { transform: translate(0, 0); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- 动态背景元素 -->
@@ -359,167 +27,46 @@
 
         <!-- 祝福卡片 -->
         <div class="wish-card">
-            <p>亲爱的千城，</p>
-            <p>在这个特别的日子里，</p>
-            <p>愿你的笑容如<span class="highlight">阳光</span>般灿烂，</p>
-            <p>愿你的生活如<span class="highlight">花朵</span>般绚烂，</p>
-            <p>愿你的每一天都充满<span class="highlight">快乐</span>与<span class="highlight">幸福</span>，</p>
-            <p>愿所有的美好都如期而至，</p>
-            <p>愿你的梦想都能实现！</p>
+            <p>千城</p>
+            <p>愿你在新的一岁里</p>
+            <p>遇见更好的<span class="highlight">自己</span></p>
+            <p>收获更多的<span class="highlight">爱</span></p>
+            <p>愿你的每一天都充满<span class="highlight">快乐</span>与<span class="highlight">幸福</span></p>
+            <p>愿所有的美好都如期而至</p>
+            <p>愿你的梦想都能实现</p>
+            <p style="margin-top: 30px; text-align: right; font-style: italic;">—— 楸</p>
         </div>
 
         <!-- 蛋糕 -->
         <div class="cake-section">
-            <div class="cake">
+            <div class="cake" id="cake" onclick="blowCandle()">
                 🎂
-                <span class="candle-flame">🔥</span>
+                <span class="candle-flame" id="flame">🔥</span>
             </div>
-            <p style="color: white; margin-top: 20px; font-size: 1.2rem;">许个愿望吧~</p>
-        </div>
-
-        <!-- 礼物盒 -->
-        <div class="gift-section">
-            <div class="gift-box" onclick="openGift()">
-                <span class="gift-emoji">🎁</span>
-                <p class="gift-text">点击打开礼物</p>
-            </div>
-            <div class="surprise-message" id="surprise">
-                🎊 惊喜！愿你在新的一岁里，<br>
-                遇见更好的自己，收获更多的爱与被爱！<br>
-                生日快乐，永远美丽！ 💕
-            </div>
+            <p style="color: white; margin-top: 20px; font-size: 1.2rem;" id="wishText">许个愿望吧~</p>
+            <p class="blow-hint" id="blowHint">✨ 点击蛋糕吹灭蜡烛 ✨</p>
         </div>
 
         <!-- 底部 -->
         <div class="footer">
-            <p>From your friend with <span class="heart">❤️</span></p>
+            <p>From 楸 with <span class="heart">❤️</span></p>
             <p style="margin-top: 10px; font-size: 0.9rem;">愿你的每一天都像今天一样特别</p>
         </div>
     </div>
 
-    <script>
-        // 创建飘落的花瓣
-        function createPetals() {
-            const container = document.getElementById('petals-container');
-            const petals = ['🌸', '🌺', '🌷', '💮', '🏵️', '🌹'];
-            
-            setInterval(() => {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                petal.textContent = petals[Math.floor(Math.random() * petals.length)];
-                petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                petal.style.opacity = Math.random() * 0.5 + 0.3;
-                petal.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                container.appendChild(petal);
-                
-                setTimeout(() => petal.remove(), 10000);
-            }, 800);
-        }
+    <!-- 音乐播放器 -->
+    <div class="music-player" id="musicPlayer">
+        <audio id="bgMusic" loop>
+            <!-- 请在此处添加音乐文件路径 -->
+            <source src="background-music.mp3" type="audio/mpeg">
+            您的浏览器不支持音频播放
+        </audio>
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+            <span class="music-icon" id="musicIcon">🎵</span>
+            <span class="music-text" id="musicText">播放音乐</span>
+        </button>
+    </div>
 
-        // 创建闪烁的星星
-        function createStars() {
-            const container = document.getElementById('stars-container');
-            
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDelay = Math.random() * 2 + 's';
-                star.style.animationDuration = (Math.random() * 2 + 1) + 's';
-                container.appendChild(star);
-            }
-        }
-
-        // 创建上升的气球
-        function createBalloons() {
-            const container = document.getElementById('balloons-container');
-            const balloons = ['🎈', '🎊', '🎉', '✨'];
-            
-            setInterval(() => {
-                const balloon = document.createElement('div');
-                balloon.className = 'balloons';
-                balloon.textContent = balloons[Math.floor(Math.random() * balloons.length)];
-                balloon.style.left = Math.random() * 100 + 'vw';
-                balloon.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                balloon.style.fontSize = (Math.random() * 30 + 30) + 'px';
-                container.appendChild(balloon);
-                
-                setTimeout(() => balloon.remove(), 25000);
-            }, 3000);
-        }
-
-        // 打开礼物
-        function openGift() {
-            const surprise = document.getElementById('surprise');
-            surprise.classList.toggle('show');
-            
-            if (surprise.classList.contains('show')) {
-                createFireworks();
-            }
-        }
-
-        // 创建烟花效果
-        function createFireworks() {
-            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3'];
-            
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const x = Math.random() * window.innerWidth;
-                    const y = Math.random() * window.innerHeight * 0.6 + 100;
-                    
-                    const firework = document.createElement('div');
-                    firework.className = 'firework';
-                    firework.style.left = x + 'px';
-                    firework.style.top = y + 'px';
-                    
-                    for (let j = 0; j < 20; j++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'firework-particle';
-                        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        
-                        const angle = (j / 20) * Math.PI * 2;
-                        const velocity = 100 + Math.random() * 50;
-                        particle.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
-                        particle.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
-                        
-                        firework.appendChild(particle);
-                    }
-                    
-                    document.body.appendChild(firework);
-                    setTimeout(() => firework.remove(), 1000);
-                }, i * 200);
-            }
-        }
-
-        // 点击页面任意位置产生小爱心
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.gift-box')) return;
-            
-            const heart = document.createElement('div');
-            heart.textContent = '💕';
-            heart.style.position = 'fixed';
-            heart.style.left = e.clientX + 'px';
-            heart.style.top = e.clientY + 'px';
-            heart.style.fontSize = '24px';
-            heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '100';
-            heart.style.animation = 'floatUp 2s ease-out forwards';
-            document.body.appendChild(heart);
-            
-            setTimeout(() => heart.remove(), 2000);
-        });
-
-        // 页面加载完成后启动动画
-        window.addEventListener('load', () => {
-            createPetals();
-            createStars();
-            createBalloons();
-        });
-
-        // 自动播放烟花
-        setInterval(createFireworks, 8000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

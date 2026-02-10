@@ -1,0 +1,475 @@
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 页面主体 */
+body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #ffd89b 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 背景渐变动画 */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========== 背景装饰元素 ========== */
+
+/* 飘落的花瓣 */
+.petal {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation: fall linear infinite;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* 闪烁的星星 */
+.star {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: twinkle 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: 0 0 4px rgba(255,255,255,0.8);
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* 上升的气球 */
+.balloons {
+    position: fixed;
+    bottom: -200px;
+    animation: floatUp 20s ease-in infinite;
+    font-size: 50px;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* ========== 主容器 ========== */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* ========== 标题区域 ========== */
+.header {
+    margin-bottom: 40px;
+    animation: fadeInDown 1.5s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.birthday-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s ease infinite;
+    display: inline-block;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+    letter-spacing: 8px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 300;
+    letter-spacing: 4px;
+}
+
+/* ========== 名字展示 ========== */
+.name-display {
+    margin: 50px 0;
+    animation: fadeInUp 1.5s ease 0.5s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.name {
+    font-size: 5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #fff, #ffd700, #fff, #ff69b4, #fff);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease infinite;
+    text-shadow: none;
+    letter-spacing: 20px;
+    display: inline-block;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========== 祝福卡片 ========== */
+.wish-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 50px 40px;
+    margin: 40px 0;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    animation: fadeInUp 1.5s ease 1s both;
+}
+
+.wish-card p {
+    font-size: 1.3rem;
+    color: white;
+    line-height: 2.2;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.wish-card .highlight {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* ========== 蛋糕区域 ========== */
+.cake-section {
+    margin: 50px 0;
+    animation: fadeInUp 1.5s ease 1.5s both;
+}
+
+.cake {
+    font-size: 120px;
+    position: relative;
+    display: inline-block;
+    animation: cakeWiggle 3s ease infinite;
+    cursor: pointer;
+}
+
+@keyframes cakeWiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+.candle-flame {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    animation: flicker 0.5s ease infinite alternate;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.candle-flame:hover {
+    transform: translateX(-50%) scale(1.3);
+}
+
+.candle-flame.blown {
+    animation: blowOut 0.5s ease forwards;
+}
+
+@keyframes flicker {
+    from { transform: translateX(-50%) scale(1); opacity: 1; }
+    to { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+}
+
+@keyframes blowOut {
+    0% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+    50% { transform: translateX(-50%) scale(1.5); opacity: 0.5; }
+    100% { transform: translateX(-50%) scale(0); opacity: 0; }
+}
+
+.cake.blown .candle-flame {
+    display: none;
+}
+
+.blow-hint {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.blow-hint.show {
+    opacity: 1;
+}
+
+:root {
+    --firework-color: #ff6b6b;
+}
+
+/* 烟花弹头 */
+.firework-rocket {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 40;
+}
+
+/* 尾迹粒子 */
+.trail-particle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 39;
+}
+
+/* 烟花爆炸容器 */
+.firework-explosion {
+    position: fixed;
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* 爆炸粒子 */
+.explosion-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: particleExplode 1.2s ease-out forwards;
+    box-shadow: 0 0 6px currentColor;
+}
+
+@keyframes particleExplode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* 爆炸闪光 */
+.explosion-flash {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: flash 0.3s ease-out forwards;
+    filter: blur(20px);
+}
+
+@keyframes flash {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* ========== 底部签名 ========== */
+.footer {
+    margin-top: 60px;
+    color: rgba(255,255,255,0.8);
+    font-size: 1.1rem;
+    animation: fadeIn 2s ease 2.5s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.heart {
+    color: #ff4757;
+    display: inline-block;
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* ========== 烟花效果 ========== */
+.firework {
+    position: fixed;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.firework-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 600px) {
+    h1 { 
+        font-size: 2.5rem; 
+        letter-spacing: 4px; 
+    }
+    
+    .name { 
+        font-size: 3rem; 
+        letter-spacing: 10px; 
+    }
+    
+    .wish-card { 
+        padding: 30px 20px; 
+    }
+    
+    .wish-card p { 
+        font-size: 1.1rem; 
+    }
+    
+    .cake { 
+        font-size: 80px; 
+    }
+    
+    .birthday-icon { 
+        font-size: 60px; 
+    }
+    
+    .music-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ========== 音乐播放器 ========== */
+.music-player {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 100;
+}
+
+.music-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.music-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+}
+
+.music-btn.playing {
+    background: rgba(255,215,0,0.3);
+    border-color: rgba(255,215,0,0.5);
+    animation: musicPulse 2s ease infinite;
+}
+
+@keyframes musicPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
+    50% { box-shadow: 0 4px 25px rgba(255,215,0,0.6); }
+}
+
+.music-icon {
+    font-size: 1.2rem;
+    animation: none;
+}
+
+.music-btn.playing .music-icon {
+    animation: musicBounce 0.5s ease infinite;
+}
+
+@keyframes musicBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
