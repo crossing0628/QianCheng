@@ -192,36 +192,39 @@ function explodeFirework(x, y, color) {
     explosion.className = 'firework-explosion';
     explosion.style.left = x + 'px';
     explosion.style.top = y + 'px';
-    
-    // 创建爆炸粒子
-    const particleCount = 40;
+
+    // 检测是否为移动设备
+    const isMobile = window.innerWidth <= 600;
+
+    // 创建爆炸粒子 - 移动端减少数量
+    const particleCount = isMobile ? 20 : 30;
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'explosion-particle';
         particle.style.backgroundColor = color;
-        
+
         // 随机角度和速度
         const angle = (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.5;
-        const velocity = 80 + Math.random() * 120;
+        const velocity = isMobile ? 60 + Math.random() * 80 : 80 + Math.random() * 100;
         const tx = Math.cos(angle) * velocity;
         const ty = Math.sin(angle) * velocity;
-        
+
         particle.style.setProperty('--tx', tx + 'px');
         particle.style.setProperty('--ty', ty + 'px');
-        
+
         explosion.appendChild(particle);
     }
-    
+
     // 添加闪光效果
     const flash = document.createElement('div');
     flash.className = 'explosion-flash';
     flash.style.backgroundColor = color;
     explosion.appendChild(flash);
-    
+
     document.body.appendChild(explosion);
-    
+
     // 清理
-    setTimeout(() => explosion.remove(), 1500);
+    setTimeout(() => explosion.remove(), 1200);
 }
 
 // 烟花定时器
@@ -266,22 +269,26 @@ function blowCandle() {
  * 开始持续放烟花
  */
 function startContinuousFireworks() {
-    // 每1.5秒发射一组烟花
+    const isMobile = window.innerWidth <= 600;
+    // 移动端间隔更长，减少性能压力
+    const interval = isMobile ? 2500 : 2000;
+
     fireworkInterval = setInterval(() => {
         launchMultipleFireworks();
-    }, 1500);
+    }, interval);
 }
 
 /**
  * 发射多组烟花
  */
 function launchMultipleFireworks() {
-    const positions = [15, 30, 50, 70, 85];
+    const positions = [15, 35, 50, 65, 85];
+
     positions.forEach((pos, index) => {
         setTimeout(() => {
             const x = window.innerWidth * (pos / 100);
             launchFirework(x);
-        }, index * 200);
+        }, index * 300);
     });
 }
 
